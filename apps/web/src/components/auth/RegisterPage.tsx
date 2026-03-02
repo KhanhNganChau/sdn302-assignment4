@@ -18,6 +18,7 @@ export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -41,6 +42,7 @@ export default function RegisterPage() {
       await registerAPI({
         username: username.trim(),
         password,
+        admin: isAdmin,
       });
       toast.success("Register successfully. Please login.");
       navigate("/login", { replace: true });
@@ -99,6 +101,15 @@ export default function RegisterPage() {
                     onChange={(event) => setConfirmPassword(event.target.value)}
                     placeholder="Confirm password"
                     autoComplete="new-password"
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-4" controlId="registerAdmin">
+                  <Form.Check
+                    type="checkbox"
+                    label="Register as admin"
+                    checked={isAdmin}
+                    onChange={(event) => setIsAdmin(event.target.checked)}
                   />
                 </Form.Group>
 
